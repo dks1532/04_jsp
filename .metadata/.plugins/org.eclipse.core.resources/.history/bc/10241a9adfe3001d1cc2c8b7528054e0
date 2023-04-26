@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form method="post" action="07.2.while.jsp">
+		반복하고 싶은 문구 : <input name="msg" size="50"><br>
+		반복하고 싶은 횟수 : <input name="count"><br>
+	</form>
+</body>
+</html>

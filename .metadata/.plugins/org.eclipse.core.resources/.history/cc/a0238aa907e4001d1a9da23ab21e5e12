@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form method="post" action="06.2.action_includeTagParam.jsp">
+		siteName : <input name="siteName"><br>
+		siteTel : <input name="siteTel"><br>
+		<input type="submit" value="보내기">
+	</form>
+</body>
+</html>
