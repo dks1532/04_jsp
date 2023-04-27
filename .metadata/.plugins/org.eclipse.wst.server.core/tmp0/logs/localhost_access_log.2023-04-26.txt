@@ -74,3 +74,12 @@
 0:0:0:0:0:0:0:1 - - [26/Apr/2023:17:21:02 +0900] "GET /ch02/07.1.action_forward.html HTTP/1.1" 200 307
 0:0:0:0:0:0:0:1 - - [26/Apr/2023:17:21:16 +0900] "POST /ch02/07.2.action_forward.jsp HTTP/1.1" 200 261
 0:0:0:0:0:0:0:1 - - [26/Apr/2023:17:21:35 +0900] "POST /ch02/07.2.action_forward.jsp HTTP/1.1" 200 265
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:07:44 +0900] "GET /ch02/01.page_info.jsp HTTP/1.1" 200 293
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:10:05 +0900] "GET /ch02/04.1.page_include_Body.jsp HTTP/1.1" 200 534
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:10:28 +0900] "GET /ch02/05.1.action_includeTag.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:10:31 +0900] "POST /ch02/05.2.action_includeTag.jsp HTTP/1.1" 200 419
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:13:51 +0900] "POST /ch02/05.2.action_includeTag.jsp HTTP/1.1" 200 419
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:14:44 +0900] "GET /ch02/06.1.action_includeTagParam.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:14:48 +0900] "POST /ch02/06.2.action_includeTagParam2.jsp HTTP/1.1" 200 467
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:16:27 +0900] "GET /ch02/07.1.action_forward.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [26/Apr/2023:18:16:34 +0900] "POST /ch02/07.2.action_forward.jsp HTTP/1.1" 200 265
