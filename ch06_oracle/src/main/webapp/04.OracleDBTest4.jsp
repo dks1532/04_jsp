@@ -10,10 +10,11 @@
 <body>
 <%
 	int count = 0;
-	Class.forName("oracle.jdbc.OracleDriver");
-	Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","kh","1234");
-	Statement st = con.createStatement();
-	ResultSet rs = st.executeQuery("select * from employee_copy3");
+	try {
+		Class.forName("oracle.jdbc.OracleDriver");
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","kh","1234");
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select * from employee_copy3");
 %> 
 	<table border="1">
 		<tr>
@@ -38,6 +39,11 @@
 	}
 %>
 	</table>
-	total records : <%=count %>		
+	total records : <%=count %>	
+<%
+	} catch(Exception e) {
+		System.out.println("예외발생 : " + e);
+	}
+%>	
 </body>
 </html>

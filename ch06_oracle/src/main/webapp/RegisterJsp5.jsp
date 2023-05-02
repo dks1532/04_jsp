@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="java.util.*, oracle06.*" %>
-<jsp:useBean id="regMgr" class="oracle06.RegisterMgr5" />    
+<jsp:useBean id="regMgr" class="oracle06.RegisterMgr5" />
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,6 @@
 	ArrayList<RegisterBean5> alist = regMgr.getRegisterList();
 	for(int i=0; i<alist.size(); i++) {
 		RegisterBean5 regBean = alist.get(i);
-		
 %>
 		<tr>
 			<td><%=regBean.getEmp_id() %></td>
@@ -34,7 +33,7 @@
 			<td><%=regBean.getDept_code() %></td>
 			<td><%=regBean.getSalary() %></td>
 		</tr>
-<%		
+<%
 	}
 %>
 	</table>

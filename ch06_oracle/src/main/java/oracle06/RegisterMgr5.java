@@ -20,7 +20,7 @@ public class RegisterMgr5 {
 	public ArrayList<RegisterBean5> getRegisterList() {
 		ArrayList<RegisterBean5> alist = new ArrayList<RegisterBean5>();
 		try {
-			Connection con = DriverManager.getConnection(JDBC_URL, USER, PASS);
+			Connection  con = DriverManager.getConnection(JDBC_URL, USER, PASS);
 			Statement st = con.createStatement();
 			String strQuery = "select * from employee";
 			ResultSet rs = st.executeQuery(strQuery);
@@ -34,9 +34,10 @@ public class RegisterMgr5 {
 				bean.setSalary(rs.getInt("salary"));
 				alist.add(bean);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return alist;
+		return alist;	
 	}
 }

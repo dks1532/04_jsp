@@ -9,9 +9,9 @@ public class OracleDBTest2 {
 			Class.forName("oracle.jdbc.OracleDriver");
 			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","kh","1234");
 			System.out.println("Success");
-			
+					  
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM JOB");
+			ResultSet rs = st.executeQuery("select * from job");
 			
 			while(rs.next()) {
 				// rs.getString("job_code");
