@@ -3,5 +3,9 @@
     <fullyQualifiedTypeName name="java.io.PrintWriter"/>
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="member.DBConnectionMgr"/>
+    <fullyQualifiedTypeName name="poll.PollMgr"/>
+    <fullyQualifiedTypeName name="poll.DBConnectionMgr"/>
+    <fullyQualifiedTypeName name="poll.PollListBean"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 </qualifiedTypeNameHistroy>
