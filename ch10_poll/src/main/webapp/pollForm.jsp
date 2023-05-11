@@ -49,7 +49,7 @@
 				} else {
 					out.print("투표");
 				}
-			%>		
+			%>
 				&emsp;&emsp;<input type="button" value="결과" 
 							onclick="window.open('pollView.jsp?num=<%=num%>', 'PollView', 'width=500, height=400')">
 				</td>

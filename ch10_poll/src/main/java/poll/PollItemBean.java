@@ -1,11 +1,11 @@
 package poll;
 
 public class PollItemBean {
-    private int listnum;	// 설문번호
-    private int itemnum;	// 아이템번호
-    private String[] item;	// 아이템 내용
-    private int count;		// 투표수
-    
+	private int listnum;	// 설문번호
+	private int itemnum;	// 아이템번호
+	private String[] item;	// 아이템 내용
+	private int count;		// 투표수
+	
 	public int getListnum() {
 		return listnum;
 	}
@@ -30,4 +30,5 @@ public class PollItemBean {
 	public void setCount(int count) {
 		this.count = count;
 	}
+	
 }

@@ -1,8 +1,6 @@
 package poll;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class PollMgr {
@@ -10,6 +8,28 @@ public class PollMgr {
 	
 	public PollMgr() {
 		pool = DBConnectionMgr.getInstance();
+	}
+	
+	public int getMaxNum() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int maxNum = 0;
+		
+		try {
+			con = pool.getConnection();
+			String sql = "select max(num) from polllist";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				maxNum = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return maxNum;
 	}
 	
 	public boolean insertPoll(PollListBean plBean, PollItemBean piBean) {
@@ -25,21 +45,21 @@ public class PollMgr {
 			pstmt.setString(2, plBean.getSdate());
 			pstmt.setString(3, plBean.getEdate());
 			pstmt.setInt(4, plBean.getType());
-			int result = pstmt.executeUpdate();
-			int result2 = 0;
-			if(result == 1) {
+
+			if(pstmt.executeUpdate() == 1) {
 				sql = "insert into pollitem values(SEQ_POLL.CURRVAL,?,?,DEFAULT)";
 				pstmt = con.prepareStatement(sql);
 				String[] item = piBean.getItem();
 				for(int i=0; i<item.length; i++) {
-					if(item[i]==null || item[i].equals(""))
+					if(item[i]==null || item[i].equals("")) {
 						break;
+					}
 					pstmt.setInt(1, i);
 					pstmt.setString(2, item[i]);
-					result2 = pstmt.executeUpdate();
+					if(pstmt.executeUpdate() == 1) {
+						flag = true;
+					}
 				}
-				if(result2 == 1)
-					flag = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +72,6 @@ public class PollMgr {
 	public ArrayList<PollListBean> getAllList() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean flag = false;
 		ResultSet rs = null;
 		ArrayList<PollListBean> alist = new ArrayList<PollListBean>();
 		
@@ -86,7 +105,11 @@ public class PollMgr {
 		
 		try {
 			con = pool.getConnection();
-			String sql = "select * from polllist where num=" + num;
+			String sql = null;
+			if(num==0)
+				sql = "select * from polllist order by num desc";
+			else 
+				sql = "select * from polllist where num=" + num;
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -110,6 +133,8 @@ public class PollMgr {
 		
 		try {
 			con = pool.getConnection();
+			if(num==0)
+				num = getMaxNum();
 			String sql = "select item from pollitem where listnum=" + num;
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -123,4 +148,107 @@ public class PollMgr {
 		}
 		return alist;
 	}
+	
+	public boolean updatePoll(int num, String[] itemnum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean flag = false;
+		
+		try {
+			con = pool.getConnection();
+			String sql = "update pollitem set count = count+1 where listnum=? and itemnum=?";
+			pstmt = con.prepareStatement(sql);
+			if(num==0)
+				num = getMaxNum();
+			
+			for(int i=0; i<itemnum.length; i++) {
+				if(itemnum[i] == null || itemnum[i].equals("")) {
+					break;
+				}
+				pstmt.setInt(1, num);
+				pstmt.setInt(2, Integer.parseInt(itemnum[i]));
+				if(pstmt.executeUpdate() > 0) {
+					flag = true;
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+	
+	public int sumCount(int num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			con = pool.getConnection();
+			String sql = "select sum(count) from pollitem where listnum=?";
+			pstmt = con.prepareStatement(sql);
+			if(num == 0)
+				pstmt.setInt(1, getMaxNum());
+			else
+				pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				count = rs.getInt(1);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
+	}
+	
+	public ArrayList<PollItemBean> getView(int num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<PollItemBean> alist = new ArrayList<PollItemBean>();
+		
+		try {
+			con = pool.getConnection();
+			String sql = "select item, count from pollitem where listnum=?";
+			pstmt = con.prepareStatement(sql);
+			if(num == 0)
+				pstmt.setInt(1, getMaxNum());
+			else
+				pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				PollItemBean piBean = new PollItemBean();
+				String[] item = new String[1];
+				item[0] = rs.getString(1);
+				piBean.setItem(item);
+				piBean.setCount(rs.getInt(2));
+				alist.add(piBean);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return alist;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
