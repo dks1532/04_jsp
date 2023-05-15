@@ -79,4 +79,9 @@ public class MemberBean {
 	public void setJob(String job) {
 		this.job = job;
 	}
+	
+	@Override
+	public String toString() {
+		return "MemberBean [id=" + id + ", name=" + name + ", gender=" + gender + ", email=" + email + "]";
+	}
 }

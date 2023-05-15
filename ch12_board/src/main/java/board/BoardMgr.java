@@ -205,6 +205,103 @@ public class BoardMgr {
 		}
 	}
 	
+	public void updateBoard(BoardBean upBean) {
+		try {
+			con = pool.getConnection();
+			sql = "update board set name = ?, subject = ?, content = ? where num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, upBean.getName());
+			pstmt.setString(2, upBean.getSubject());
+			pstmt.setString(3, upBean.getContent());
+			pstmt.setInt(4, upBean.getNum());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
+	
+	public boolean deleteBoard(int num) {
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) from board where ref = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int result = rs.getInt(1);
+				if(result == 1) {
+					flag = true;
+					sql = "select filename from board where num = ?"; // 파일이 있나 없나 확인
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					rs = pstmt.executeQuery();
+					if(rs.next() && rs.getString(1) != null) {
+						File file = new File(SAVEFOLDER + "/" + rs.getString(1));
+						if(file.exists()) {
+							UtilMgr.delete(SAVEFOLDER + "/" + rs.getString(1));
+						}
+					}
+					
+					sql="delete from board where num = ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.executeQuery();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
+	}
+	
+	// 답변글의 위치값 증가(기존에 댓글이 있는 경우만 위치 조절해줌) 시켜주는 메서드
+	public void replyUpBoard(int ref, int pos) {
+		try {
+			con = pool.getConnection();
+			sql = "update board set pos = pos + 1 where ref = ? and pos > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			pstmt.setInt(2, pos);
+			pstmt.executeUpdate();	// 데이터베이스 변화 있는거는 update, 없는거는 query (DB변화 없는거는 select문만 있음)
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
+	
+	public void replyBoard(BoardBean bean) {
+		try {
+			con = pool.getConnection();
+			sql = "insert into board values(SEQ_BOARD.NEXTVAL,?,?,?,?,?,?,SYSDATE,?,?,0,NULL,NULL)";
+			
+			int depth = bean.getDepth() + 1;
+			int pos = bean.getPos() + 1;
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getName());
+			pstmt.setString(2, bean.getSubject());
+			pstmt.setString(3, bean.getContent());
+			pstmt.setInt(4, pos);
+			pstmt.setInt(5, bean.getRef());
+			pstmt.setInt(6, depth);
+			pstmt.setString(7, bean.getPass());
+			pstmt.setString(8, bean.getIp());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
+	
+	// 게시판 글 자동으로 생성하는 메서드
 	/*
 	public static void main(String[] args) {
 		new BoardMgr().insert();

@@ -174,5 +174,145 @@
 		}
 	</script>
 	
+	<h3>2. 버튼 클릭시 post방식으로 서버에 여러개의 데이터 전송 및 응답</h3>
+	이름 : <input id="input2_1"><p/>
+	나이 : <input id="input2_2"><p/>
+	<button onclick="test2();">전송</button><p/>
+	
+	<!--  ver1.
+	<script>
+		function test2() {
+			$.ajax({
+				url : "jqAjax2.do",
+				data : {
+					name : $("#input2_1").val(),
+					age : $("#input2_2").val()
+				},
+				type:"post",
+				success:function(name, age) {
+					// 응답받는 데이터는 첫번째 변수에만 저장됨. 뒤에 변수들은 소용없음
+					console.log(name);
+					console.log(age);
+				},
+				error:function() {
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+	</script>
+	 -->
+	 
+	<!--  ver2. 배열이나 객체로 받기 -->
+	<ul id="output2"></ul>
+	
+	<script>
+		function test2() {
+			$.ajax({
+				url:"jqAjax2.do",
+				data : {
+					name : $("#input2_1").val(),
+					age : $("#input2_2").val()
+				},
+				type:"post",
+				success:function(result) {
+					/* var2.1 배열로 받았을 때
+					console.log(result);
+					console.log(result[0]);
+					console.log(result[1]);
+					
+					const value = "<li>" + result[0] + "</li>"
+								+ "<li>" + result[1] + "</li>";
+					$("#output2").html(value);
+					$("#input2_1").val("");
+					$("#input2_2").val("");
+					 */
+					 
+					// var2.2 일반객체로 받았을 때
+					console.log(result);
+					console.log(result.name);
+					console.log(result.age);
+					
+					const value = "<li>" + result.name + "</li>"
+								+ "<li>" + result.age + "</li>";
+					$("#output2").html(value);
+					$("#input2_1").val("");
+					$("#input2_2").val("");
+				},
+				error:function() {
+					console.log("ajax 통신 실패");
+				}
+			});
+		}
+	</script>
+	
+	<h3>3. 서버에 데이터 전송 후, 조회된 bean객체를 응답데이터로 받을 때</h3>
+	
+	검색하고자 하는 회원ID : <input id="input3">
+	<button onclick="test3();">조회</button><p/>
+	
+	<div id="output3"></div>
+	
+	<script>
+		function test3() {
+			$.ajax({
+				url:"jqAjax3.me",
+				data:{id3:$("#input3").val()},
+				success:function(result){
+					console.log(result);
+					
+					const value = "========= 검색 결과 =========<br>"
+								+ "ID : " + result.id + "<br>"
+								+ "NAME : " + result.name + "<br>"
+								+ "성별 : " + result.gender + "<br>"
+								+ "EMAIL : " + result.email + "<br>";
+					$("#output3").html(value);
+				},
+				error:function(){
+					console.log("ajax 통신 실패");	
+				}
+			});
+		}
+	</script>
+	
+	<h3>4. 응답데이터로 조회된 여러 bean객체에 담겨있는 ArrayList받기</h3>
+	
+	<button onclick="test4();">회원전체 조회</button>
+	
+	<table id="output4" border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>이름</th>
+				<th>성별</th>
+				<th>이메일</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	
+	<script>
+		function test4() {
+			$.ajax({
+				url:"jqAjax4.me",
+				success:function(result) {
+					let value = "";
+					for(let i=0; i<result.length; i++) {
+						value += "<tr>"
+							   + "	<td>" + result[i].id +"</td>"
+							   + "	<td>" + result[i].name +"</td>"
+							   + "	<td>" + result[i].gender +"</td>"
+							   + "	<td>" + result[i].email +"</td>"
+							   + "</tr>";
+					}
+					$("#output4 tbody").html(value);
+				},
+				error:function() {
+					console.log("ajax 통신 실패");	
+				}
+			});
+		}
+	</script>
+	
 </body>
 </html>

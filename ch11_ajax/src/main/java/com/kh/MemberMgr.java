@@ -1,6 +1,7 @@
 package com.kh;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class MemberMgr {
 	private DBConnectionMgr pool;
@@ -97,5 +98,58 @@ public class MemberMgr {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return flag;
+	}
+	
+	public MemberBean getMember(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberBean bean = new MemberBean();
+		
+		try {
+			con = pool.getConnection();
+			String sql = "select id, name, gender, email from member where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setId(rs.getString(1));
+				bean.setName(rs.getString(2));
+				bean.setGender(rs.getString(3));
+				bean.setEmail(rs.getString(4));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}
+	
+	public ArrayList<MemberBean> getAllMember() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MemberBean> alist = new ArrayList<MemberBean>();
+		
+		try {
+			con = pool.getConnection();
+			String sql = "select id, name, gender, email from member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberBean bean = new MemberBean();
+				bean.setId(rs.getString(1));
+				bean.setName(rs.getString(2));
+				bean.setGender(rs.getString(3));
+				bean.setEmail(rs.getString(4));
+				alist.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return alist;
 	}
 }
