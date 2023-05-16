@@ -32,7 +32,7 @@
 	}
 </script>
 </head>
-<body bgcolor="#FFFFE0">
+<body>
 	<table align="center" width="600px">
 		<tr>
 			<th colspan="4">글 읽 기</th>
