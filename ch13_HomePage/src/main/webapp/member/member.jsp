@@ -10,7 +10,7 @@
 	th {padding:8px;}
 	td {padding:3px 0 3px 3px;}
 </style>
-<script src="resource/js/script.js" type="text/javascript" charset="utf-8"></script>
+<script src="../resource/js/script.js" type="text/javascript" charset="utf-8"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function findAddr() {
