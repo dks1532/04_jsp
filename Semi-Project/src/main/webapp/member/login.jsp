@@ -30,9 +30,10 @@
 <% } else { %>
 
 	<form name = "loginFrm" method="post" action="loginProc.jsp">
+		<br><br>
 		<table align="center" class="form-group" class="form-group">
 			<tr>
-				<th align="center" colspan="2">로그인</th>
+				<th colspan="2">로그인</th>
 			</tr>
 			<tr>
 				<td>아 이 디</td>

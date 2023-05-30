@@ -35,7 +35,6 @@
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="reply.DBConnectionMgr"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.google.gson.Gson"/>
     <fullyQualifiedTypeName name="java.sql.DatabaseMetaData"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
@@ -43,4 +42,9 @@
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="reply.ReplyBean"/>
     <fullyQualifiedTypeName name="reply.ReplyMgr"/>
+    <fullyQualifiedTypeName name="com.kh.KhBean"/>
+    <fullyQualifiedTypeName name="com.kh.KhMgr"/>
+    <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+    <fullyQualifiedTypeName name="com.kh.model.vo.Person"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

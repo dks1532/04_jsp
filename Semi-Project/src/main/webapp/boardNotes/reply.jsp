@@ -27,16 +27,16 @@
 				<th colspan="2" bgcolor="lightpink">답변하기</th>
 			</tr>
 			<tr>
-				<td width="20%">성 명</td>
-				<td width="80%"><input name="name"></td>
+				<td width="20%">분 류</td>
+				<td width="80%"><input name="name" required></td>
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td><input name="subject" value="답변 : <%=notesbean.getSubject() %>"></td>
+				<td><input name="subject" value="답변 : <%=notesbean.getSubject() %>" size=40 required></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="content" rows= "30" cols= "70">
+				<td><textarea name="content" rows= "30" cols= "70" required>
 					<%=notesbean.getContent() %>
 					============== 답변 글을 쓰세요 ==============
 					</textarea>

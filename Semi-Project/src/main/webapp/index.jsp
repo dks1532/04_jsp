@@ -66,7 +66,7 @@
 </body>
 <script>
 	function needLogin() {
-		alert("로그인이 필요합니다.");
+		alert("로그인 후 사용가능한 서비스입니다.");
 		location.href="./member/login.jsp";
 	}
 </script>

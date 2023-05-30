@@ -28,15 +28,15 @@
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td><input name="subject"></td>
+				<td><input name="subject" size=40 required></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="content" rows= "30" cols= "70"></textarea></td>
+				<td><textarea name="content" rows= "30" cols= "70" required></textarea></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name="pass"></td>
+				<td><input type="password" name="pass" required></td>
 			</tr>
 			<tr>
 				<td>파일찾기</td>

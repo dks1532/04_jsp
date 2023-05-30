@@ -32,11 +32,11 @@
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td><input name="subject" value="답변 : <%=bean.getSubject() %>"></td>
+				<td><input name="subject" value="답변 : <%=bean.getSubject() %>" size=40 required></td>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="content" rows= "30" cols= "70">
+				<td><textarea name="content" rows= "30" cols= "70" required>
 					<%=bean.getContent() %>
 					============== 답변 글을 쓰세요 ==============
 					</textarea>
